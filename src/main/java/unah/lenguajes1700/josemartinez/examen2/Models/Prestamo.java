@@ -21,12 +21,13 @@ public class Prestamo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long codigoPrestamo;
+    private Integer codigoPrestamo;
     @Column(name="fechaapertura")
     private LocalDate fechaApertura;
     private double monto;
     private double cuota;
-    private double plazo;
+    private Integer plazo;
+    private double interes;
 
 
     

@@ -14,10 +14,10 @@ import lombok.Data;
 public class Cliente {
 
     @Id
-private String dni;
-private String nombre;
-private String apellido;
-private String telefono;
+    private String dni;
+    private String nombre;
+    private String apellido;
+    private String telefono;
 
 @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
 private Prestamo prestamo;

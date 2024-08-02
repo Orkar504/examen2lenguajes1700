@@ -18,8 +18,8 @@ public class Cuotas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigoCuota ;
-    private Long mes;
+    private Integer codigoCuota ;
+    private Integer mes;
 
     @JsonIgnore
     @ManyToOne
