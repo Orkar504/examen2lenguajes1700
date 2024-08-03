@@ -2,6 +2,7 @@ package unah.lenguajes1700.josemartinez.examen2.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,12 +19,13 @@ public class Cuotas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="codigocuota")
     private Integer codigoCuota ;
     private Integer mes;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="codigoprestamo", referencedColumnName = "codigoprestamo")
+
     private Prestamo prestamo;
 
 

@@ -10,7 +10,6 @@ import lombok.Data;
 @Entity
 @Table(name="cliente")
 @Data
-
 public class Cliente {
 
     @Id
