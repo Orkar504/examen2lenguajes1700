@@ -20,7 +20,6 @@ public class CuotaServicio {
     {
 
         Cuotas nCuotas = new Cuotas();
-        nCuotas.setPrestamo(nvoPrestamo);
         Integer meses = nvoPrestamo.getPlazo()*12;
         double interest = nvoPrestamo.getInteres()/12;
         double saldoMensual = nvoPrestamo.getMonto();
@@ -35,7 +34,7 @@ public class CuotaServicio {
                 nCuotas.setInteres(null);
                 nCuotas.setCapital(null);
                 nCuotas.setSaldo(nvoPrestamo.getMonto());
-                nCuotas.setPrestamo(nvoPrestamo);
+                
             } else{
                 nCuotas.setMes(i);
                 interesMensual = saldoMensual*interest;
@@ -46,9 +45,8 @@ public class CuotaServicio {
                 nCuotas.setSaldo(saldoMensual);
 
             }
-            
-
-            this.cuotaRepositorio.save(nCuotas);
+            //nCuotas.setPrestamo(nvoPrestamo);
+             this.cuotaRepositorio.save(nCuotas);
 
         }
     }
