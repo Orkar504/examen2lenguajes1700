@@ -10,7 +10,7 @@ import unah.lenguajes1700.josemartinez.examen2.Models.Cuotas;
 import unah.lenguajes1700.josemartinez.examen2.Models.Prestamo;
 import unah.lenguajes1700.josemartinez.examen2.Repositorios.CuotaRepositorio;
 
-@Transactional
+
 @Service
 public class CuotaServicio {
 
