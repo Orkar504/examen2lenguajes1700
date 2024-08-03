@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import unah.lenguajes1700.josemartinez.examen2.Models.Cuotas;
 import unah.lenguajes1700.josemartinez.examen2.Models.Prestamo;
 import unah.lenguajes1700.josemartinez.examen2.Repositorios.CuotaRepositorio;
 
+@Transactional
 @Service
 public class CuotaServicio {
 
@@ -45,7 +47,7 @@ public class CuotaServicio {
                 nCuotas.setSaldo(saldoMensual);
 
             }
-            //nCuotas.setPrestamo(nvoPrestamo);
+            nCuotas.setPrestamo(nvoPrestamo);
              this.cuotaRepositorio.save(nCuotas);
 
         }
