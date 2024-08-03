@@ -20,6 +20,8 @@ public class ClienteServicio {
     @Autowired
     private PrestamoServicio prestamoServicio;
 
+   
+
     @Autowired 
     private CuotaServicio cuotaServicio;
 
@@ -29,6 +31,7 @@ public class ClienteServicio {
         Prestamo nvoPrestamo =nvoCliente.getPrestamo();
         nvoPrestamo.setCuota( this.cuotaServicio.calcularCuota(nvoPrestamo.getMonto(),nvoPrestamo.getPlazo(), nvoPrestamo.getInteres()));
         nvoCliente.setPrestamo(nvoPrestamo);
+        this.cuotaServicio.generarTablaCuotas(nvoPrestamo);
         
 
         return this.clienteRepositorio.save(nvoCliente);

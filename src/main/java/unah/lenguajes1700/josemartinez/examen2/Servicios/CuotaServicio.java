@@ -16,14 +16,14 @@ public class CuotaServicio {
     private CuotaRepositorio cuotaRepositorio;
 
 
-    public String generarTablaCuotas(Prestamo nvoPrestamo)
+    public void generarTablaCuotas(Prestamo nvoPrestamo)
     {
 
         Cuotas nCuotas = new Cuotas();
         nCuotas.setPrestamo(nvoPrestamo);
         Integer meses = nvoPrestamo.getPlazo()*12;
         double interest = nvoPrestamo.getInteres()/12;
-        double saldoMensual = 0;
+        double saldoMensual = nvoPrestamo.getMonto();
         double interesMensual = 0;
         double capitalMensual = 0;
 
@@ -38,20 +38,19 @@ public class CuotaServicio {
                 nCuotas.setPrestamo(nvoPrestamo);
             } else{
                 nCuotas.setMes(i);
-                nCuotas.setInteres(saldoMensual*interest);
-                interesMensual =nCuotas.getInteres();
-                nCuotas.setCapital(nvoPrestamo.getCuota()-interesMensual);
+                interesMensual = saldoMensual*interest;
+                nCuotas.setInteres(interesMensual);
+                capitalMensual = nvoPrestamo.getCuota() - interesMensual;
+                nCuotas.setCapital(capitalMensual);
                 saldoMensual = saldoMensual - capitalMensual; 
                 nCuotas.setSaldo(saldoMensual);
 
             }
-            saldoMensual = nCuotas.getSaldo();
+            
 
             this.cuotaRepositorio.save(nCuotas);
 
         }
-
-        return "se ha generado la tabla";
     }
 
     public double calcularCuota(double monto, Integer plazo, double intereses)
