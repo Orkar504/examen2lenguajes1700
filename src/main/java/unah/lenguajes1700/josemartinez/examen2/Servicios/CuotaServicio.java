@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import unah.lenguajes1700.josemartinez.examen2.Models.Cuotas;
 import unah.lenguajes1700.josemartinez.examen2.Models.Prestamo;
 import unah.lenguajes1700.josemartinez.examen2.Repositorios.CuotaRepositorio;
 
@@ -15,11 +16,42 @@ public class CuotaServicio {
     private CuotaRepositorio cuotaRepositorio;
 
 
-    public String generarTablaCuotas(Prestamo nvPrestamo)
+    public String generarTablaCuotas(Prestamo nvoPrestamo)
     {
 
+        Cuotas nCuotas = new Cuotas();
+        nCuotas.setPrestamo(nvoPrestamo);
+        Integer meses = nvoPrestamo.getPlazo()*12;
+        double interest = nvoPrestamo.getInteres()/12;
+        double saldoMensual = 0;
+        double interesMensual = 0;
+        double capitalMensual = 0;
 
-        return "Se han generado las cuotas";
+        for (Integer i = 0 ; i<meses; i++)
+        { 
+            if(i == 0 )
+            {
+                nCuotas.setMes(0);
+                nCuotas.setInteres(null);
+                nCuotas.setCapital(null);
+                nCuotas.setSaldo(nvoPrestamo.getMonto());
+                nCuotas.setPrestamo(nvoPrestamo);
+            } else{
+                nCuotas.setMes(i);
+                nCuotas.setInteres(saldoMensual*interest);
+                interesMensual =nCuotas.getInteres();
+                nCuotas.setCapital(nvoPrestamo.getCuota()-interesMensual);
+                saldoMensual = saldoMensual - capitalMensual; 
+                nCuotas.setSaldo(saldoMensual);
+
+            }
+            saldoMensual = nCuotas.getSaldo();
+
+            this.cuotaRepositorio.save(nCuotas);
+
+        }
+
+        return "se ha generado la tabla";
     }
 
     public double calcularCuota(double monto, Integer plazo, double intereses)
@@ -31,7 +63,7 @@ public class CuotaServicio {
          double numerador;
 
          numerador = monto*interest*Math.pow((1+interest), meses);
-         denominador = (1+Math.pow((1 + interest), meses)) - 1;
+         denominador = Math.pow((1 + interest), meses) - 1;
 
          cuota = (numerador)/(denominador);
 
